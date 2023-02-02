@@ -1,0 +1,31 @@
+def search(keyword):
+    words = []
+    words.append(keyword)
+    for x in Thesaurus:
+        if keyword==x.word:
+            for word in x.syn:
+                words.append(word)
+            break
+    answer = []
+    for find_word in words:
+        count = 0
+        for document in corpus:
+            for word in document:
+                if find_word == word:
+                    count = count+1
+            pair=(find_word,count)
+            answer.append(pair)
+    return answer
+
+class x :
+    def __init__(self, input_word, input_syn):
+        self.word = input_word
+        self.syn = input_syn
+x1 = x("dog", ["doggie", "puppy"])
+x2 = x("cat",["kitty"])
+Thesaurus = [x1,x2]
+doc1 = ["dog","dog","a","puppy","document"]
+doc2 = ["here", "dog","kitty","puppy"]
+corpus = [doc1, doc2]
+ouput = search("dog")
+print(ouput)
