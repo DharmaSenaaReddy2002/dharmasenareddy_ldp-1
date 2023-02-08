@@ -1,0 +1,96 @@
+import java.util.*;
+class Dharma {
+    static final int M = 1000000007;
+
+    static int mod(int x) {
+        return ((x % M + M) % M);
+    }
+
+    static int add(int a, int b) {
+        return (mod(mod(a) + mod(b)));
+    }
+
+    static int mul(int a, int b) {
+        return (mod(mod(a) * mod(b)));
+    }
+
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+
+        int test = scan.nextInt();
+        String[] outputs = new String[test];
+        int outputIndex = 0;
+        while (test-- > 0) {
+            int n = scan.nextInt();
+            int[] a = new int[n];
+            for (int i = 0; i < n; i++) {
+                a[i] = scan.nextInt();
+            }
+
+            int mov = (n / 2);
+
+            if (n % 2 != 0) {
+                mov++;
+            }
+
+            int now = mov;
+
+            int even = 0, odd = 0;
+
+            for (int i = 0; i < n; i++) {
+                if (a[i] % 2 == 0) {
+                    even++;
+                } else {
+                    odd++;
+                }
+            }
+
+            int f = 0;
+
+            while (true) {
+                if (now < 0) {
+                    outputs[outputIndex++] = "Bob wins";
+
+                    f = 1;
+                }
+
+                if (f == 1) {
+                    break;
+                }
+
+                int val1 = now + now - 1;
+
+                int val2 = mov - now + mov - now;
+
+                if (even >= val1 && odd >= val2) {
+                    outputs[outputIndex++] = "Alice wins";
+
+                    f = 1;
+                }
+
+                if (f == 1) {
+                    break;
+                }
+
+                val1 = now + now;
+
+                val2 = mov - now + mov - now - 1;
+
+                if (even >= val1 && odd >= val2) {
+                    outputs[outputIndex++] = "Alice wins";
+
+                    f = 1;
+                }
+
+                if (f == 1) {
+                    break;
+                }
+
+                now = now - 2;
+            }
+        }
+        for (String output : outputs) {
+            System.out.println(output);
+        }
+    }
+}
