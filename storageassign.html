@@ -1,0 +1,46 @@
+<html>
+    <body>
+    <div>
+        <p>Local Score: <span id="local-score">0</span></p>
+        <p>Session Score: <span id="session-score">0</span></p>
+        <button id="increment-button">Increment Scores</button>
+      </div>
+
+      <script>
+        // Get references to the HTML elements
+const localScoreElement = document.getElementById('local-score');
+const sessionScoreElement = document.getElementById('session-score');
+const incrementButton = document.getElementById('increment-button');
+
+// Retrieve the local score from local storage, or set it to 0 if it doesn't exist
+let localScore = localStorage.getItem('local-score') || 0;
+localScoreElement.textContent = localScore;
+
+// Retrieve the session score from session storage, or set it to 0 if it doesn't exist
+let sessionScore = sessionStorage.getItem('session-score') || 0;
+sessionScoreElement.textContent = sessionScore;
+
+// Set up event listener for the increment button
+incrementButton.addEventListener('click', () => {
+  // Increment both scores
+  localScore++;
+  sessionScore++;
+  
+  // Update the UI
+  localScoreElement.textContent = localScore;
+  sessionScoreElement.textContent = sessionScore;
+  
+  // Store the updated local score in local storage
+  localStorage.setItem('local-score', localScore);
+});
+
+// Set up event listener for when the browser window is closed
+window.addEventListener('beforeunload', () => {
+  // Store the session score in session storage
+  sessionStorage.setItem('session-score', sessionScore);
+});
+
+      </script>
+    </body>
+      
+</html>
